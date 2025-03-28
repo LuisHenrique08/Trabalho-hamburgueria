@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackBurger - Avalie Nosso Site</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-dark: #E05A00;
+            --black: #000000;
+            --dark: #121212;
+            --light: #FFFFFF;
+            --gray: #1E1E1E;
+            --card-bg: #1A1A1A;
+            --success: #4CAF50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
+        
+        body {
+            background-color: var(--black);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,107,0,0.2);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo i {
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .feedback-hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .feedback-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feedback-container {
+            padding: 5rem 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+        
+        .feedback-form {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        .form-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background-color: var(--dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .rating-group {
+            margin-bottom: 2rem;
+        }
+        
+        .rating-title {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .stars-container {
+            display: flex;
+            gap: 0.5rem;
+            position: relative;
+        }
+        
+        .stars {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .star {
+            font-size: 2rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .star:hover,
+        .star.active {
+            color: var(--primary);
+        }
+        
+        .stars-hover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            gap: 0.5rem;
+            width: 0;
+            overflow: hidden;
+        }
+        
+        .star-hover {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .reviews-container {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            max-height: 800px;
+            overflow-y: auto;
+        }
+        
+        .reviews-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .review {
+            background-color: var(--dark);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .review-name {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .review-rating {
+            color: var(--primary);
+        }
+        
+        .review-comment {
+            color: #aaa;
+            line-height: 1.6;
+        }
+        
+        .review-date {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #666;
+            text-align: right;
+        }
+        
+        .no-reviews {
+            text-align: center;
+            color: #aaa;
+            padding: 2rem 0;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            padding: 5rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,107,0,0.1);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .social-links a {
+            color: var(--light);
+            background-color: var(--gray);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s;
+            font-size: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px) scale(1.1);
+            color: var(--black);
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 992px) {
+            .feedback-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .feedback-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1.5rem;
+            }
+            
+            .nav-links {
+                margin-top: 1.5rem;
+            }
+            
+            .nav-links li {
+                margin-left: 1.5rem;
+                margin-right: 1.5rem;
+            }
+            
+            .feedback-hero h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 1rem;
+            }
+            
+            .feedback-form,
+            .reviews-container {
+                padding: 1.5rem;
+            }
+            
+            .social-links a {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-hamburger"></i>
+                <span>Gourmet Burger</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="indexTESTE.html">Início</a></li>
+                <li><a href="testeCardapio.html">Cardápio</a></li>
+                <li><a href="testePedido.html">Pedido</a></li>
+        
+            </ul>
+        </nav>
+    </header>
+
+    <section class="feedback-hero">
+        <h1>Sua Opinião é Importante</h1>
+    </section>
+
+    <main class="feedback-container">
+        <section class="feedback-form">
+            <h2 class="form-title">Avalie Nosso Site</h2>
+            <form id="review-form">
+                <div class="form-group">
+                    <label for="name">Seu Nome</label>
+                    <input type="text" id="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Seu Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="rating-group">
+                    <div class="rating-title">Avaliação</div>
+                    <div class="stars-container" id="stars-container">
+                        <div class="stars" id="stars">
+                            <i class="fas fa-star star" data-rating="1"></i>
+                            <i class="fas fa-star star" data-rating="2"></i>
+                            <i class="fas fa-star star" data-rating="3"></i>
+                            <i class="fas fa-star star" data-rating="4"></i>
+                            <i class="fas fa-star star" data-rating="5"></i>
+                        </div>
+                        <div class="stars-hover" id="stars-hover">
+                            <i class="fas fa-star star-hover"></i>
+                            <i class="fas fa-star star-hover"></i>
+                            <i class="fas fa-star star-hover"></i>
+                            <i class="fas fa-star star-hover"></i>
+                            <i class="fas fa-star star-hover"></i>
+                        </div>
+                    </div>
+                    <input type="hidden" id="rating" value="0" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="comment">Seu Comentário</label>
+                    <textarea id="comment" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Enviar Avaliação</button>
+            </form>
+        </section>
+        
+        <section class="reviews-container">
+            <h2 class="reviews-title">Avaliações Recentes</h2>
+            <div id="reviews-list">
+                <div class="no-reviews">
+                    <i class="fas fa-comment-alt" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>Nenhuma avaliação ainda</p>
+                    <p>Seja o primeiro a avaliar!</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-hamburger"></i>
+                <span>Gourmet Burger</span>
+            </div>
+            <p>Onde a arte encontra o sabor</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/luis.henriqueex?igsh=MWk1bDBiOXdvN3NkMQ=="><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/+5542999867927"><i class="fab fa-whatsapp"></i></a>
+              
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BlackBurger. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const reviewForm = document.getElementById('review-form');
+            const starsContainer = document.getElementById('stars-container');
+            const stars = document.querySelectorAll('.star');
+            const starsHover = document.getElementById('stars-hover');
+            const ratingInput = document.getElementById('rating');
+            const reviewsList = document.getElementById('reviews-list');
+            
+            // Carregar avaliações salvas
+            loadReviews();
+            
+            // Configuração do sistema de estrelas
+            let currentRating = 0;
+            let hoverRating = 0;
+            
+            // Adicionar eventos para as estrelas
+            starsContainer.addEventListener('mouseover', function(e) {
+                if (e.target.classList.contains('star')) {
+                    const star = e.target;
+                    hoverRating = parseInt(star.dataset.rating);
+                    updateStarsHover();
+                }
+            });
+            
+            starsContainer.addEventListener('mouseout', function() {
+                hoverRating = 0;
+                updateStarsHover();
+            });
+            
+            starsContainer.addEventListener('click', function(e) {
+                if (e.target.classList.contains('star')) {
+                    const star = e.target;
+                    currentRating = parseInt(star.dataset.rating);
+                    ratingInput.value = currentRating;
+                    updateStars();
+                }
+            });
+            
+            function updateStars() {
+                stars.forEach(star => {
+                    const starRating = parseInt(star.dataset.rating);
+                    if (starRating <= currentRating) {
+                        star.classList.add('active');
+                    } else {
+                        star.classList.remove('active');
+                    }
+                });
+            }
+            
+            function updateStarsHover() {
+                const ratingToShow = hoverRating || currentRating;
+                starsHover.style.width = `${ratingToShow * 44}px`; // 40px por estrela + 4px de gap
+            }
+            
+            // Enviar formulário de avaliação
+            reviewForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const rating = parseInt(ratingInput.value);
+                const comment = document.getElementById('comment').value.trim();
+                
+                if (!name || !email || !comment) {
+                    alert('Por favor, preencha todos os campos!');
+                    return;
+                }
+                
+                if (rating < 1 || rating > 5) {
+                    alert('Por favor, selecione uma avaliação entre 1 e 5 estrelas!');
+                    return;
+                }
+                
+                const review = {
+                    id: Date.now(),
+                    name,
+                    email,
+                    rating,
+                    comment,
+                    date: new Date().toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })
+                };
+                
+                // Salvar avaliação no localStorage
+                saveReview(review);
+                
+                // Recarregar a lista de avaliações
+                loadReviews();
+                
+                // Limpar formulário
+                reviewForm.reset();
+                currentRating = 0;
+                ratingInput.value = "0";
+                updateStars();
+                updateStarsHover();
+                
+                // Feedback para o usuário
+                alert('Obrigado por sua avaliação!');
+            });
+            
+            // Função para salvar avaliação no localStorage
+            function saveReview(review) {
+                let reviews = JSON.parse(localStorage.getItem('burgerReviews')) || [];
+                reviews.unshift(review); // Adiciona no início do array
+                localStorage.setItem('burgerReviews', JSON.stringify(reviews));
+            }
+            
+            // Função para carregar avaliações do localStorage
+            function loadReviews() {
+                const reviews = JSON.parse(localStorage.getItem('burgerReviews')) || [];
+                
+                if (reviews.length === 0) {
+                    reviewsList.innerHTML = `
+                        <div class="no-reviews">
+                            <i class="fas fa-comment-alt" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                            <p>Nenhuma avaliação ainda</p>
+                            <p>Seja o primeiro a avaliar!</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                reviewsList.innerHTML = '';
+                
+                reviews.forEach(review => {
+                    const reviewEl = document.createElement('div');
+                    reviewEl.className = 'review';
+                    reviewEl.innerHTML = `
+                        <div class="review-header">
+                            <div class="review-name">${review.name}</div>
+                            <div class="review-rating">
+                                ${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}
+                            </div>
+                        </div>
+                        <div class="review-comment">${review.comment}</div>
+                        <div class="review-date">
+                            ${review.date}
+                        </div>
+                    `;
+                    
+                    reviewsList.appendChild(reviewEl);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

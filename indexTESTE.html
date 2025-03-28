@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOURMET BURGERS - Hamburgueria Premium</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-dark: #E05A00;
+            --black: #000000;
+            --dark: #121212;
+            --light: #FFFFFF;
+            --gray: #1E1E1E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
+        
+        body {
+            background-color: var(--black);
+            color: var(--light);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,107,0,0.2);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo i {
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2.5rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 600;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 700px;
+            margin-bottom: 3rem;
+            animation: fadeIn 2s ease-in-out;
+            font-weight: 300;
+        }
+        
+        .divider {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            margin: 2rem auto;
+            border: none;
+        }
+        
+        .highlights {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: var(--dark);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .section-title h2 {
+            font-size: 3rem;
+            color: var(--light);
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .section-title h2 span {
+            color: var(--primary);
+        }
+        
+        .section-title p {
+            color: #aaa;
+            max-width: 700px;
+            margin: 1rem auto 0;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .feature-card {
+            background-color: var(--gray);
+            border-radius: 5px;
+            padding: 3rem 2rem;
+            text-align: center;
+            transition: all 0.5s;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-bottom: 3px solid var(--primary);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            color: #aaa;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .gallery-section {
+            padding: 8rem 5%;
+            background-color: var(--black);
+        }
+        
+        .gallery-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .gallery-item {
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-overlay h3 {
+            color: var(--light);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .gallery-overlay p {
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            padding: 5rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,107,0,0.1);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .social-links a {
+            color: var(--light);
+            background-color: var(--gray);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s;
+            font-size: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px) scale(1.1);
+            color: var(--black);
+        }
+        
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #777;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1.5rem;
+            }
+            
+            .nav-links {
+                margin-top: 1.5rem;
+            }
+            
+            .nav-links li {
+                margin-left: 1.5rem;
+                margin-right: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .social-links a {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-hamburger"></i>
+                <span>Gourmet Burger</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="testeCardapio.html">Cardápio</a></li>
+                <li><a href="testePedido.html">Pedido</a></li>
+                <li><a href="avaliaçãoTESTE.html">Avaliação</a></li>
+        
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Arte em Cada Mordida</h1>
+        <hr class="divider">
+        <p>Hambúrgueres premium em um ambiente exclusivo, onde cada detalhe é pensado para sua experiência</p>
+    </section>
+
+
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <div class="section-title">
+                <h2>Nossas <span>Criações</span></h2>
+                <p>Explore nossa seleção de hambúrgueres que são verdadeiras obras-primas gastronômicas</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1553979459-d2229ba7433b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Black Classic">
+                    <div class="gallery-overlay">
+                        <h3>Black Classic</h3>
+                        <p>O clássico reinventado</p>
+                    </div>
+                </div>
+                
+            
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1607013251379-e6eecfffe234?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Green Power">
+                    <div class="gallery-overlay">
+                        <h3>Green Power</h3>
+                        <p>Opção vegetariana premium</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1608767221051-2b9d18f35a2f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Truffle Master">
+                    <div class="gallery-overlay">
+                        <h3>Truffle Master</h3>
+                        <p>Experiência gourmet</p>
+                    </div>
+                </div>
+                
+                
+                
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Bacon King">
+                    <div class="gallery-overlay">
+                        <h3>Bacon King</h3>
+                        <p>O imperador do bacon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOURMET BURGERS - Faça Seu Pedido</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Todos os estilos anteriores permanecem exatamente iguais */
+        
+        /* Adicione apenas este novo estilo para o footer */
+        .footer {
+            background-color: var(--dark);
+            padding: 3rem 5%;
+            border-top: 1px solid rgba(255,107,0,0.2);
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-title {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-title::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #aaa;
+        }
+        
+        .footer-info i {
+            color: var(--primary);
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-info a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-info a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Todo o conteúdo anterior permanece exatamente igual -->
+    
+    <!-- Adicione este footer antes do fechamento do body -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3 class="footer-title">Horário de Atendimento</h3>
+                <div class="footer-info">
+                    <i class="fas fa-clock"></i>
+                    <span>Segunda a Sexta: 18h - 23h</span>
+                </div>
+                <div class="footer-info">
+                    <i class="fas fa-clock"></i>
+                    <span>Sábado: 15h - 00h</span>
+                </div>
+                <div class="footer-info">
+                    <i class="fas fa-clock"></i>
+                    <span>Domingo: 15h - 23h</span>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="footer-title">Contato</h3>
+                <div class="footer-info">
+                    <i class="fas fa-phone-alt"></i>
+                    <a href="tel:+5511999999999">(42) 99986-7927</a>
+                </div>
+                <div class="footer-info">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:contato@blackburger.com">Gourmet.burgers@gmail.com</a>
+                </div>
+                <div class="footer-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Rua Santos Dumont, 1612 - Centro</span>
+                </div>
+            </div>
+            
+            
+            </div>
+        </div>
+        
+        
+    </footer>
+
+    <!-- O script JavaScript permanece exatamente igual -->
+    <script>
+        // Todo o JavaScript anterior permanece exatamente igual
+    </script>
+</body>
+</html>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-hamburger"></i>
+                <span>Gourmet Burger</span>
+            </div>
+            <p>Onde a arte encontra o sabor</p>
+            <div class="social-links">
+                <a href="https://www.instagram.com/luis.henriqueex?igsh=MWk1bDBiOXdvN3NkMQ=="><i class="fab fa-instagram"></i></a>
+                
+                <a href="https://wa.me/+5542999867927"><i class="fab fa-whatsapp"></i></a>
+              
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BlackBurger. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

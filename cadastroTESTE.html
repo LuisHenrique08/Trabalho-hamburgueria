@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackBurger - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --primary-dark: #E05A00;
+            --black: #000000;
+            --dark: #121212;
+            --light: #FFFFFF;
+            --gray: #1E1E1E;
+            --card-bg: #1A1A1A;
+            --success: #4CAF50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+        }
+        
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap');
+        
+        body {
+            background-color: var(--black);
+            color: var(--light);
+            line-height: 1.6;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,107,0,0.2);
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .logo i {
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .auth-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+        
+        .auth-box {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .auth-tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            font-weight: 600;
+            text-align: center;
+            flex: 1;
+            position: relative;
+            color: #aaa;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary);
+        }
+        
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+        
+        .auth-content {
+            display: none;
+        }
+        
+        .auth-content.active {
+            display: block;
+        }
+        
+        .auth-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 5px;
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .auth-btn {
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--light);
+            border: none;
+            padding: 1rem;
+            border-radius: 5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .auth-btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: #aaa;
+        }
+        
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            padding: 2rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(255,107,0,0.1);
+        }
+        
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .copyright {
+            color: #777;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1.5rem;
+            }
+            
+            .auth-box {
+                padding: 1.5rem;
+            }
+            
+            .auth-tab {
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .auth-tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+            
+            .auth-tab {
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+            
+            .auth-tab.active::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-hamburger"></i>
+                <span>Gourmet Burger</span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="auth-container">
+        <div class="auth-box">
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Entrar</div>
+                <div class="auth-tab" data-tab="register">Criar Conta</div>
+            </div>
+            
+            <div class="auth-content active" id="login-content">
+                <h2 class="auth-title">Faça seu Login</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Senha</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Entrar</button>
+                </form>
+                
+                <div class="auth-footer">
+                    Não tem uma conta? <a href="#" id="switch-to-register">Cadastre-se</a>
+                </div>
+            </div>
+            
+            <div class="auth-content" id="register-content">
+                <h2 class="auth-title">Criar Nova Conta</h2>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-name">Nome Completo</label>
+                        <input type="text" id="register-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">Senha</label>
+                        <input type="password" id="register-password" required minlength="6">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-confirm">Confirme sua Senha</label>
+                        <input type="password" id="register-confirm" required>
+                    </div>
+                    
+                    <button type="submit" class="auth-btn">Criar Conta</button>
+                </form>
+                
+                <div class="auth-footer">
+                    Já tem uma conta? <a href="#" id="switch-to-login">Faça login</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                <p>&copy; 2023 BlackBurger. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos do DOM
+            const loginTab = document.querySelector('[data-tab="login"]');
+            const registerTab = document.querySelector('[data-tab="register"]');
+            const loginContent = document.getElementById('login-content');
+            const registerContent = document.getElementById('register-content');
+            const switchToRegister = document.getElementById('switch-to-register');
+            const switchToLogin = document.getElementById('switch-to-login');
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            
+            // Alternar entre login e registro
+            function switchTab(tab) {
+                // Remover classe active de todas as tabs e conteúdos
+                loginTab.classList.remove('active');
+                registerTab.classList.remove('active');
+                loginContent.classList.remove('active');
+                registerContent.classList.remove('active');
+                
+                // Adicionar classe active na tab selecionada
+                if (tab === 'login') {
+                    loginTab.classList.add('active');
+                    loginContent.classList.add('active');
+                } else {
+                    registerTab.classList.add('active');
+                    registerContent.classList.add('active');
+                }
+            }
+            
+            // Event listeners para as tabs
+            loginTab.addEventListener('click', () => switchTab('login'));
+            registerTab.addEventListener('click', () => switchTab('register'));
+            switchToRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchTab('register');
+            });
+            switchToLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchTab('login');
+            });
+            
+            // Verificar se há usuários cadastrados no localStorage
+            if (!localStorage.getItem('users')) {
+                localStorage.setItem('users', JSON.stringify([]));
+            }
+            
+            // Função para verificar credenciais
+            function authenticate(email, password) {
+                const users = JSON.parse(localStorage.getItem('users'));
+                const user = users.find(u => u.email === email && u.password === password);
+                return user;
+            }
+            
+            // Função para registrar novo usuário
+            function registerUser(name, email, password) {
+                const users = JSON.parse(localStorage.getItem('users'));
+                
+                // Verificar se o email já está cadastrado
+                if (users.some(u => u.email === email)) {
+                    return { success: false, message: 'Email já cadastrado!' };
+                }
+                
+                const newUser = {
+                    id: Date.now(),
+                    name,
+                    email,
+                    password,
+                    createdAt: new Date().toISOString()
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                return { success: true, user: newUser };
+            }
+            
+            // Login
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value.trim();
+                
+                const user = authenticate(email, password);
+                
+                if (user) {
+                    // Salvar sessão do usuário
+                    sessionStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    // Redirecionar para a página inicial
+                    window.location.href = 'indexTESTE.html'; // Altere para o nome da sua página inicial
+                } else {
+                    alert('Email ou senha incorretos!');
+                }
+            });
+            
+            // Registro
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('register-name').value.trim();
+                const email = document.getElementById('register-email').value.trim();
+                const password = document.getElementById('register-password').value.trim();
+                const confirmPassword = document.getElementById('register-confirm').value.trim();
+                
+                // Validações
+                if (password !== confirmPassword) {
+                    alert('As senhas não coincidem!');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    alert('A senha deve ter pelo menos 6 caracteres!');
+                    return;
+                }
+                
+                const result = registerUser(name, email, password);
+                
+                if (result.success) {
+                    // Salvar sessão do usuário
+                    sessionStorage.setItem('currentUser', JSON.stringify(result.user));
+                    
+                    // Redirecionar para a página inicial
+                    window.location.href = 'indexTESTE.html'; // Altere para o nome da sua página inicial
+                } else {
+                    alert(result.message);
+                }
+            });
+            
+            // Verificar se já está logado
+            if (sessionStorage.getItem('currentUser')) {
+                window.location.href = 'indexTESTE.html'; // Redireciona se já estiver logado
+            }
+        });
+    </script>
+</body>
+</html>
